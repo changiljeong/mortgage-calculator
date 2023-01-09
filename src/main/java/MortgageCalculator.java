@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
+
 public class MortgageCalculator extends JFrame {
 
   private JTextField jtfInterestRate = new JTextField();
@@ -22,6 +23,7 @@ public class MortgageCalculator extends JFrame {
 
     buildUI();
     setFrameOptions();
+
 
     ActionListener listenner = new ActionListener() {
       @Override
