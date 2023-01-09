@@ -7,6 +7,7 @@ public class LocalBanks {
   private double discount;
   private int years;
   private boolean autoPayment;
+  private String rateType;
 
   public LocalBanks() {
   }
