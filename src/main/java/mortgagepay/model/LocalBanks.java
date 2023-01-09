@@ -1,7 +1,67 @@
 package mortgagepay.model;
 
-public enum LocalBanks {
-  CHANGE_ME, CHASE, NAVY_FEDERAL, USAA, CHANGE_ME2
+public class LocalBanks {
+  private String bankName;
+  private double offerRate;
+  private double credit;
+  private double discount;
+  private int years;
+  private boolean autoPayment;
+
+  public LocalBanks() {
+  }
+
+  public LocalBanks(String bankName, double discount, int years) {
+    this.bankName = bankName;
+//    this.offerRate = offerRate;
+//    this.credit = credit;
+    this.discount = discount;
+    this.years = years;
+  }
+
+  public String getBankName() {
+    return bankName;
+  }
+
+  public void setBankName(String bankName) {
+    this.bankName = bankName;
+  }
+
+  public double getOfferRate() {
+    return offerRate;
+  }
+
+  public void setOfferRate(String bankName, Terms term) {
+    //use name and term to get offerRate
+
+  }
+
+  public double getCredit() {
+    return credit;
+  }
+
+  public void setCredit(String bankName, boolean autoPayment) {
+    //use bank name and auto payment to get credits.
+  }
+
+  public double getDiscount() {
+    return discount;
+  }
+
+  public void setDiscount(double discount) {
+    this.discount = discount;
+  }
+
+  public int getYears() {
+    return years;
+  }
+
+  public void setYears(int years) {
+    this.years = years;
+  }
+
+
+
 }
 
 
