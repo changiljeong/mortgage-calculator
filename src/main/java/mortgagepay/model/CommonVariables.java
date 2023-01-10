@@ -11,7 +11,7 @@ public class CommonVariables {
   double hoaFee;
   double propertyTax;
   double ownerInsurance;
-  int zipCode;
+
   int creditScore;
   double totalPaymentDue;
   double totalMonthlyPayment;
@@ -20,7 +20,7 @@ public class CommonVariables {
   public CommonVariables(){};
 
   public CommonVariables(double homeValue, double downPayment, double interestRate, int loanTerm,
-      double loanAmount, double hoaFee, double propertyTax, double ownerInsurance, int zipCode,
+      double loanAmount, double hoaFee, double propertyTax, double ownerInsurance,
       int creditScore, double totalPaymentDue, double totalMonthlyPayment) {
     this.homeValue = homeValue;
     this.downPayment = downPayment;
@@ -30,7 +30,6 @@ public class CommonVariables {
     this.hoaFee = hoaFee;
     this.propertyTax = propertyTax;
     this.ownerInsurance = ownerInsurance;
-    this.zipCode = zipCode;
     this.creditScore = creditScore;
     this.totalPaymentDue = totalPaymentDue;
     this.totalMonthlyPayment = totalMonthlyPayment;
@@ -100,14 +99,6 @@ public class CommonVariables {
     this.ownerInsurance = ownerInsurance;
   }
 
-  public int getZipCode() {
-    return zipCode;
-  }
-
-  public void setZipCode(int zipCode) {
-    this.zipCode = zipCode;
-  }
-
   public int getCreditScore() {
     return creditScore;
   }
@@ -131,9 +122,6 @@ public class CommonVariables {
   public void setTotalMonthlyPayment(double totalMonthlyPayment) {
     this.totalMonthlyPayment = totalMonthlyPayment;
   }
-
-
-
 
 
 

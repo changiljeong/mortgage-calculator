@@ -13,12 +13,17 @@ public class LocalBanks {
   public LocalBanks() {
   }
 
-  public LocalBanks(String bankName, double[] offerRate, double credit, double discount, int years) {
+  public LocalBanks(String bankName, Terms term) {
     this.bankName = bankName;
-    this.offerRate = offerRate;
+    this.years = term.getYear();
+  }
+
+  public LocalBanks(String bankName, double credit, double discount, Terms term) {
+    this.bankName = bankName;
+    this.offerRate = getOfferRate();
     this.credit = credit;
     this.discount = discount;
-    this.years = years;
+    this.years = getYears(term);
   }
 
   public String getBankName() {
@@ -131,6 +136,16 @@ public class LocalBanks {
     this.years = years;
   }
 
+//  public boolean decisionMake() { //
+//    if(creditScore <700)
+//      return false;
+//    else{
+//      if(monthlyPayment > (monthlyIncomeBeforeTax*PERCERTAGE1 + otherDebt) || monthlyPayment > monthlyIncomeBeforeTax*PERCERTAGE2){
+//        return false;
+//      }
+//      return true;
+//    }
+//  }
 
 }
 
