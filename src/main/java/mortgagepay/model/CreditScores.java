@@ -9,7 +9,7 @@ public enum CreditScores {
   private final int score;
   private final String level;
 
-  private CreditScores(int score, String level){
+  CreditScores(int score, String level){
     this.score = score;
     this.level = level;
   }
