@@ -3,6 +3,38 @@ package mortgagepay.model;
 // use for commonly shared variable on manual, affordability, and local bank offers.
 public class CommonVariables {
 
+  double homeValue;
+  double downPayment;
+  double InterestRate;
+  int loanTerm;
+  double loanAmount;
+  double hoaFee;
+  double propertyTax;
+  double ownerInsurance;
+
+  int creditScore;
+  double totalPaymentDue;
+  double totalMonthlyPayment;
+  private UserInfo user;
+
+  public CommonVariables(){};
+
+  public CommonVariables(double homeValue, double downPayment, double interestRate, int loanTerm,
+      double loanAmount, double hoaFee, double propertyTax, double ownerInsurance,
+      int creditScore, double totalPaymentDue, double totalMonthlyPayment) {
+    this.homeValue = homeValue;
+    this.downPayment = downPayment;
+    InterestRate = interestRate;
+    this.loanTerm = loanTerm;
+    this.loanAmount = loanAmount;
+    this.hoaFee = hoaFee;
+    this.propertyTax = propertyTax;
+    this.ownerInsurance = ownerInsurance;
+    this.creditScore = creditScore;
+    this.totalPaymentDue = totalPaymentDue;
+    this.totalMonthlyPayment = totalMonthlyPayment;
+  }
+
   public double getHomeValue() {
     return homeValue;
   }
@@ -67,14 +99,6 @@ public class CommonVariables {
     this.ownerInsurance = ownerInsurance;
   }
 
-  public int getZipCode() {
-    return zipCode;
-  }
-
-  public void setZipCode(int zipCode) {
-    this.zipCode = zipCode;
-  }
-
   public int getCreditScore() {
     return creditScore;
   }
@@ -99,37 +123,7 @@ public class CommonVariables {
     this.totalMonthlyPayment = totalMonthlyPayment;
   }
 
-  public CommonVariables(double homeValue, double downPayment, double interestRate, int loanTerm,
-      double loanAmount, double hoaFee, double propertyTax, double ownerInsurance, int zipCode,
-      int creditScore, double totalPaymentDue, double totalMonthlyPayment) {
-    this.homeValue = homeValue;
-    this.downPayment = downPayment;
-    InterestRate = interestRate;
-    this.loanTerm = loanTerm;
-    this.loanAmount = loanAmount;
-    this.hoaFee = hoaFee;
-    this.propertyTax = propertyTax;
-    this.ownerInsurance = ownerInsurance;
-    this.zipCode = zipCode;
-    this.creditScore = creditScore;
-    this.totalPaymentDue = totalPaymentDue;
-    this.totalMonthlyPayment = totalMonthlyPayment;
-  }
 
-  double homeValue;
-  double downPayment;
-  double InterestRate;
-  int loanTerm;
-  double loanAmount;
-  double hoaFee;
-  double propertyTax;
-  double ownerInsurance;
-  int zipCode;
-  int creditScore;
-  double totalPaymentDue;
-  double totalMonthlyPayment;
-
-  //private UserInfo user = new UserInfo(inputlater, userinputlater);
 
 
 }

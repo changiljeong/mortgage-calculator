@@ -2,22 +2,28 @@ package mortgagepay.model;
 
 public class LocalBanks {
   private String bankName;
-  private double offerRate;
+  private double[] offerRate;
   private double credit;
   private double discount;
   private int years;
-  private boolean autoPayment;
+  private boolean autoPayment = false;
   private String rateType;
+
 
   public LocalBanks() {
   }
 
-  public LocalBanks(String bankName, double discount, int years) {
+  public LocalBanks(String bankName, Terms term) {
     this.bankName = bankName;
-//    this.offerRate = offerRate;
-//    this.credit = credit;
+    this.years = term.getYear();
+  }
+
+  public LocalBanks(String bankName, double credit, double discount, Terms term) {
+    this.bankName = bankName;
+    this.offerRate = getOfferRate();
+    this.credit = credit;
     this.discount = discount;
-    this.years = years;
+    this.years = getYears(term);
   }
 
   public String getBankName() {
@@ -28,13 +34,82 @@ public class LocalBanks {
     this.bankName = bankName;
   }
 
-  public double getOfferRate() {
+  public double[] getOfferRate() {
+    switch (bankName){
+      case "Chase Bank":
+        if(years == 30){
+          if(RateType.FIXED.getRateType().equals("fixed")){
+            offerRate[0] = 0.05;
+          }else{
+            offerRate[0] = 0.03;
+            for(int i=6,j=0; i<=30; i=i+2,j++){
+              offerRate[j+1] = offerRate[j]+0.0025;
+            }
+          }
+        }else if(years == 15){
+          if(RateType.FIXED.getRateType().equals("fixed")){
+            offerRate[0] = 0.05;
+          }else{
+            offerRate[0] = 0.0325;
+            for(int i=6,j=0; i<=30; i=i+2,j++){
+              offerRate[j+1] = offerRate[j]+0.0025;
+            }
+          }
+          break;
+        }
+
+      case "Navy Federal Bank":
+        if(years == 30){
+          if(RateType.FIXED.getRateType().equals("fixed")){
+            offerRate[0] = 0.0475;
+          }else{
+            offerRate[0] = 0.0325;
+            for(int i=6,j=0; i<=30; i=i+2,j++){
+              offerRate[j+1] = offerRate[j]+0.005;
+            }
+          }
+        }else if(years == 15){
+          if(RateType.FIXED.getRateType().equals("fixed")){
+            offerRate[0] = 0.0525;
+          }else{
+            offerRate[0] = 0.035;
+            for(int i=6,j=0; i<=30; i=i+2,j++){
+              offerRate[j+1] = offerRate[j]+0.005;
+            }
+          }
+          break;
+        }
+
+      case "USAA":
+        if(years == 30){
+          if(RateType.FIXED.getRateType().equals("fixed")){
+            offerRate[0] = 0.045;
+          }else{
+            offerRate[0] = 0.0375;
+            for(int i=6,j=0; i<=30; i=i+2,j++){
+              offerRate[j+1] = offerRate[j]+0.0075;
+            }
+          }
+        }else if(years == 15){
+          if(RateType.FIXED.getRateType().equals("fixed")){
+            offerRate[0] = 0.05;
+          }else{
+            offerRate[0] = 0.0375;
+            for(int i=6,j=0; i<=30; i=i+2,j++){
+              offerRate[j+1] = offerRate[j]+0.0075;
+            }
+          }
+          break;
+        }
+
+    }
+
+
     return offerRate;
   }
 
   public void setOfferRate(String bankName, Terms term) {
     //use name and term to get offerRate
-
   }
 
   public double getCredit() {
@@ -53,15 +128,24 @@ public class LocalBanks {
     this.discount = discount;
   }
 
-  public int getYears() {
-    return years;
+  public int getYears(Terms term) {
+    return term.getYear();
   }
 
   public void setYears(int years) {
     this.years = years;
   }
 
-
+//  public boolean decisionMake() { //
+//    if(creditScore <700)
+//      return false;
+//    else{
+//      if(monthlyPayment > (monthlyIncomeBeforeTax*PERCERTAGE1 + otherDebt) || monthlyPayment > monthlyIncomeBeforeTax*PERCERTAGE2){
+//        return false;
+//      }
+//      return true;
+//    }
+//  }
 
 }
 

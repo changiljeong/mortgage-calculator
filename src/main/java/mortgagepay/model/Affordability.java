@@ -4,79 +4,41 @@ package mortgagepay.model;
 // Calculator gives simple afforadability amount which combines all the taxes, insurace, PMI, HOA fees that users needs to consider.... message showing
 // all the expenese related to homebuying & sustaining is included in the final amount??
 
+import java.io.PrintStream;
+
 public class Affordability {
-  double monthlyIncomeBeforeTax;
-  double monthlyCurrentLoanOrRent;
-  double monthlyDebts;
 
-  double monthlyUtilityBills;
-  // give some examples in terminal that what kind of expenses should be combined to the user (e.g., car, cell phone, internet, gas bill, etc.)
-  double monthlyOtherExpenses;
-  double monthlyNetIncome;
+  private double PERCERTAGE1 = 0.28;
+  private double PERCERTAGE2 = 0.36;
 
+  private double monthlyIncomeBeforeTax;
+  private double otherDebt;
+  private int monthsOfTerm ;
 
-  public Affordability(double monthlyIncomeBeforeTax, double monthlyCurrentLoanOrRent,
-      double monthlyDebts, double monthlyUtilityBills, double monthlyOtherExpenses,
-      double monthlyNetIncome) {
+  private double monthlyPayment;
+  private int downPayment;
+  private String rateType;
+  private int loanTerm;
+  private String bankName;
+
+  public Affordability(double monthlyIncomeBeforeTax, RateType type, int loanTerm, int creditScore) {
     this.monthlyIncomeBeforeTax = monthlyIncomeBeforeTax;
-    this.monthlyCurrentLoanOrRent = monthlyCurrentLoanOrRent;
-    this.monthlyDebts = monthlyDebts;
-    this.monthlyUtilityBills = monthlyUtilityBills;
-    this.monthlyOtherExpenses = monthlyOtherExpenses;
-    this.monthlyNetIncome = monthlyNetIncome;
+    this.rateType = type.getRateType();
+    this.monthsOfTerm = loanTerm*12;
+  }
+
+  public double getMonthlyPayment(){
+    return 0;
   }
 
 
-  // amount of net income + credit score should determine how much they can afford + if any banks can offer them any loan.
-
-
-  public double getMonthlyIncomeBeforeTax() {
-    return monthlyIncomeBeforeTax;
+  public double getAffordabilityAmount(){
+     double payment = monthlyPayment*PERCERTAGE1;
+     monthsOfTerm = loanTerm*12;
+     double[] offerRate = new LocalBanks(bankName, Terms.LONG_TERM).getOfferRate();
+     double rte = offerRate[0];
+    double amt = payment/(rte + (rte/(Math.pow((1+rte), monthsOfTerm)))-1);
+     return amt;
   }
-
-  public void setMonthlyIncomeBeforeTax(double monthlyIncomeBeforeTax) {
-    this.monthlyIncomeBeforeTax = monthlyIncomeBeforeTax;
-  }
-
-  public double getMonthlyCurrentLoanOrRent() {
-    return monthlyCurrentLoanOrRent;
-  }
-
-  public void setMonthlyCurrentLoanOrRent(double monthlyCurrentLoanOrRent) {
-    this.monthlyCurrentLoanOrRent = monthlyCurrentLoanOrRent;
-  }
-
-  public double getMonthlyDebts() {
-    return monthlyDebts;
-  }
-
-  public void setMonthlyDebts(double monthlyDebts) {
-    this.monthlyDebts = monthlyDebts;
-  }
-
-  public double getMonthlyUtilityBills() {
-    return monthlyUtilityBills;
-  }
-
-  public void setMonthlyUtilityBills(double monthlyUtilityBills) {
-    this.monthlyUtilityBills = monthlyUtilityBills;
-  }
-
-  public double getMonthlyOtherExpenses() {
-    return monthlyOtherExpenses;
-  }
-
-  public void setMonthlyOtherExpenses(double monthlyOtherExpenses) {
-    this.monthlyOtherExpenses = monthlyOtherExpenses;
-  }
-
-  public double getMonthlyNetIncome() {
-    return monthlyNetIncome;
-  }
-
-  public void setMonthlyNetIncome(double monthlyNetIncome) {
-    this.monthlyNetIncome = monthlyNetIncome;
-  }
-
 
 }

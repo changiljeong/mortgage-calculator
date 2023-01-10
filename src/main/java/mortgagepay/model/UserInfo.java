@@ -4,10 +4,14 @@ public class UserInfo {
 
   private String name;
   private String email;
+  private String address;
+  private int zipCode;
 
-  public UserInfo(String name, String email) {
+  public UserInfo(String name, String email, String address, int zipCode) {
     this.name = name;
     this.email = email;
+    this.address = address;
+    this.zipCode = zipCode;
   }
 
   public String getName() {
@@ -24,5 +28,13 @@ public class UserInfo {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  @Override
+  public String toString() {
+    return "UserInfo{" +
+        "name='" + name + '\'' +
+        ", email='" + email + '\'' +
+        '}';
   }
 }
