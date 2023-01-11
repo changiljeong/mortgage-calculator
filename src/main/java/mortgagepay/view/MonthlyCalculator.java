@@ -3,24 +3,31 @@ package mortgagepay.view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import mortgagepay.model.CommonVariables;
+import mortgagepay.model.LocalBanks;
+import mortgagepay.model.Terms;
 
 
-public class MonthlyCalculator extends JFrame {
+public class MonthlyCalculator extends JFrame implements CalculatorRender {
 
-  private JTextField jtfInterestRate = new JTextField();
+  private JTextField jtfHomeValue = new JTextField();
+  private JTextField jtfDownPayment = new JTextField();
   private JTextField jtfLoanTerm = new JTextField();
-  private JTextField jftLoanAmount = new JTextField();
-  private JTextField jtfMonthlyPayment = new JTextField();
-  private JTextField jtfTotalPayment = new JTextField();
-  private JTextField jftDownPayment = new JTextField();
-  private JTextField jftHomeValue = new JTextField();
+  private JTextField jtfRateType = new JTextField();
+  private JTextField jtfInterestRate = new JTextField();
+  private JTextField jtfPropertyTax = new JTextField();
+  private JTextField jtfOwnerInsurance = new JTextField();
+  private JTextField jtfHOAFee = new JTextField();
+  private double monthlyPayment = 1000000;
 
   private JLabel messageLabel = new JLabel();
-  private JButton jbtCalculator=new JButton("Your mortgage details");
+  private JButton jbtCalculator=new JButton("Submit");
 
+  private CommonVariables variables;
+  private LocalBanks localbanks;
 
   public MonthlyCalculator() {
-    super("Please Enter Home Value,Interest Rate,and Term");
+    super("MonthlyPaymentCalculator");
     buildUI();
     setFrameOptions();
 
@@ -29,62 +36,50 @@ public class MonthlyCalculator extends JFrame {
       public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         double homeValue=
-            Double.parseDouble(jftHomeValue.getText());
+            Double.parseDouble(jtfHomeValue.getText());
         double downPayment=
-            Double.parseDouble(jftDownPayment.getText());
-        double interestRate=
-            Double.parseDouble(jtfInterestRate.getText());
-        int loanTerm=
-            Integer.parseInt(jtfLoanTerm.getText());
-        double loanAmount= homeValue - downPayment;
+            Double.parseDouble(jtfDownPayment.getText());
+        localbanks.setTerm(Terms.valueOf(jtfLoanTerm.getText()));
 
-        double monthlyInterest=interestRate/1200;
-
-        double monthlyPayment= loanAmount*monthlyInterest*Math.pow(1+monthlyInterest, loanTerm*12)/(Math.pow(1+monthlyInterest,loanTerm*12)-1);
-        double totalPayment=monthlyPayment*loanTerm*12;
-
-        jftLoanAmount.setText(String.format("%.2f", loanAmount));
-        jtfMonthlyPayment.setText(String.format("%.2f", monthlyPayment));
-        jtfTotalPayment.setText(String.format("%.2f", totalPayment));
+        jtfInterestRate.setText(String.format("%.2f", monthlyPayment));
 
       }
     };
     jbtCalculator.addActionListener(listenner);
 
   }
-
-
-  private void buildUI() {
+  @Override
+    public void buildUI() {
     Container pane = getContentPane();
-    setPreferredSize(new Dimension(400, 300));
-    pane.setLayout(new GridLayout(9, 2));
+    setPreferredSize(new Dimension(1000, 300));
+    pane.setLayout(new GridLayout(5, 4));
 
-    pane.add(new JLabel("Home Value"));
-    pane.add(jftHomeValue);
+    pane.add(new JLabel("HomeValue"));
+    pane.add(jtfHomeValue);
     pane.add(new JLabel("Down payment"));
-    pane.add(jftDownPayment);
-    pane.add(new JLabel("Interest Rate"));
-    pane.add(jtfInterestRate);
+    pane.add(jtfDownPayment);
     pane.add(new JLabel("Loan Term"));
     pane.add(jtfLoanTerm);
-    pane.add(new JLabel("Loan Amount"));
-    pane.add(jftLoanAmount);
-    pane.add(new JLabel("Monthly Payment"));
-    pane.add(jtfMonthlyPayment);
-    pane.add(new JLabel("Total Payment"));
-    pane.add(jtfTotalPayment);
+    pane.add(new JLabel("Interest Rate"));
+    pane.add(jtfInterestRate);
+    pane.add(new JLabel("PropertyTax"));
+    pane.add(jtfPropertyTax);
+    pane.add(new JLabel("OwnerInsurance"));
+    pane.add(jtfOwnerInsurance);
+    pane.add(new JLabel("HOAFee"));
+    pane.add(jtfHOAFee);
 
-    jftHomeValue.setDocument(new NumberDocument());
-    jftDownPayment.setDocument(new NumberDocument());
-    jtfInterestRate.setDocument(new NumberDocument());
-    jtfLoanTerm.setDocument(new NumberDocument());
+//    jtfHomeValue.setDocument(new NumberDocument());
+//    jtfLoanTerm.setDocument(new NumberDocument());
+//    jtfDownPayment.setDocument(new NumberDocument());
 
-    jftLoanAmount.setBackground(Color.LIGHT_GRAY);
-    jftLoanAmount.setEditable(false);
-    jtfMonthlyPayment.setBackground(Color.LIGHT_GRAY);
-    jtfMonthlyPayment.setEditable(false);
-    jtfTotalPayment.setBackground(Color.LIGHT_GRAY);
-    jtfTotalPayment.setEditable(false);
+
+//    jtfPropertyTax.setBackground(Color.LIGHT_GRAY);
+//    jtfPropertyTax.setEditable(false);
+//    jtfOwnerInsurance.setBackground(Color.LIGHT_GRAY);
+//    jtfOwnerInsurance.setEditable(false);
+//    jtfHOAFee.setBackground(Color.LIGHT_GRAY);
+//    jtfHOAFee.setEditable(false);
 
     pane.add(jbtCalculator);
     pane.add(messageLabel);
@@ -96,10 +91,7 @@ public class MonthlyCalculator extends JFrame {
     pack();
   }
 
-  private void warning(String msg) {
-    JOptionPane.showMessageDialog(this, msg, "Disaster Status", JOptionPane.WARNING_MESSAGE);
+  public static void main(String[] args) {
+    new MonthlyCalculator().setVisible(true);
   }
-
-
-
 }

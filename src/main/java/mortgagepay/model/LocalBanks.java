@@ -10,13 +10,14 @@ public class LocalBanks {
   private RateType rateType;
   private Terms term;
 
+
   public LocalBanks() {
   }
 
   public LocalBanks(String bankName, Terms term, RateType rateType) {
     this.bankName = bankName;
-    this.years = term.getYear();
-    rateType = rateType;
+    this.term = term;
+    this.rateType = rateType;
   }
 
   public LocalBanks(String bankName, double credit, double discount, Terms term) {
@@ -35,71 +36,76 @@ public class LocalBanks {
   }
 
   public double[] getOfferRate() {
+    double[] offerRate1 = new double[14];
+    double[] offerRate2 = new double[7];
     switch (bankName){
       case "Chase Bank":
         if(term.getYear() == 30){
           if(rateType.getRateType().equals("fixed")){
-            offerRate[0] = 0.05;
+            offerRate1[0] = 0.05;
           }else{
-            offerRate[0] = 0.03;
+            offerRate1[0] = 0.03;
             for(int i=6,j=0; i<=30; i=i+2,j++){
-              offerRate[j+1] = offerRate[j]+0.0025;
+              offerRate1[j+1] = offerRate1[j]+0.0025;
             }
           }
+          return offerRate1;
         }else if(term.getYear() == 15){
           if(rateType.getRateType().equals("fixed")){
-            offerRate[0] = 0.05;
+            offerRate2[0] = 0.05;
           }else{
-            offerRate[0] = 0.0325;
+            offerRate2[0] = 0.0325;
             for(int i=6,j=0; i<=15; i=i+2,j++){
-              offerRate[j+1] = offerRate[j]+0.0025;
+              offerRate2[j+1] = offerRate2[j]+0.0025;
             }
           }
-          break;
+          return offerRate2;
         }
 
       case "Navy Federal Bank":
         if(term.getYear() == 30){
           if(rateType.getRateType().equals("fixed")){
-            offerRate[0] = 0.0475;
+            offerRate1[0] = 0.0475;
           }else{
-            offerRate[0] = 0.0325;
+            offerRate1[0] = 0.0325;
             for(int i=6,j=0; i<=30; i=i+2,j++){
-              offerRate[j+1] = offerRate[j]+0.005;
+              offerRate1[j+1] = offerRate1[j]+0.005;
             }
           }
+          return offerRate1;
         }else if(term.getYear() == 15){
           if(rateType.equals("fixed")){
-            offerRate[0] = 0.0525;
+            offerRate2[0] = 0.0525;
           }else{
-            offerRate[0] = 0.035;
+            offerRate2[0] = 0.035;
             for(int i=6,j=0; i<=15; i=i+2,j++){
-              offerRate[j+1] = offerRate[j]+0.005;
+              offerRate2[j+1] = offerRate2[j]+0.005;
             }
           }
-          break;
+          return offerRate2;
         }
 
       case "USAA":
         if(term.getYear() == 30){
           if(RateType.FIXED.getRateType().equals("fixed")){
-            offerRate[0] = 0.045;
+            offerRate1[0] = 0.045;
           }else{
-            offerRate[0] = 0.0375;
+            offerRate1[0] = 0.0375;
             for(int i=6,j=0; i<=30; i=i+2,j++){
-              offerRate[j+1] = offerRate[j]+0.0075;
+              offerRate1[j+1] = offerRate1[j]+0.0075;
             }
           }
+          return offerRate1;
         }else if(term.getYear() == 15){
           if(RateType.FIXED.getRateType().equals("fixed")){
-            offerRate[0] = 0.05;
+            offerRate2[0] = 0.05;
           }else{
-            offerRate[0] = 0.0375;
+            offerRate2[0] = 0.0375;
             for(int i=6,j=0; i<=15; i=i+2,j++){
-              offerRate[j+1] = offerRate[j]+0.0075;
+              offerRate2[j+1] = offerRate2[j] + 0.0075;
             }
           }
-          break;
+          return offerRate2;
         }
 
     }
@@ -108,9 +114,7 @@ public class LocalBanks {
     return offerRate;
   }
 
-  public void setOfferRate(String bankName, Terms term) {
-    //use name and term to get offerRate
-  }
+
 
   public double getCredit() {
     return credit;
@@ -134,6 +138,14 @@ public class LocalBanks {
 
   public void setYears(int years) {
     this.years= years;
+  }
+
+  public Terms getTerm() {
+    return term;
+  }
+
+  public void setTerm(Terms term) {
+    this.term = term;
   }
 
 //  public boolean decisionMake() { //
