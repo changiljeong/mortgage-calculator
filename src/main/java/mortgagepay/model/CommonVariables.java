@@ -5,34 +5,35 @@ public class CommonVariables {
 
   double homeValue;
   double downPayment;
-  double InterestRate;
-  int loanTerm;
+  double[] interestRate;
   double loanAmount;
   double hoaFee;
   double propertyTax;
   double ownerInsurance;
-
-  int creditScore;
-  double totalPaymentDue;
   double totalMonthlyPayment;
-  private UserInfo user;
+  double totalLoanAmount;
+
+//  int creditScore;
+//  private UserInfo user;
+  private String bankName;
+  private Terms term;
+  private RateType rateType;
+
 
   public CommonVariables(){};
 
-  public CommonVariables(double homeValue, double downPayment, double interestRate, int loanTerm,
+  public CommonVariables(double homeValue, double downPayment, double[] interestRate,
       double loanAmount, double hoaFee, double propertyTax, double ownerInsurance,
-      int creditScore, double totalPaymentDue, double totalMonthlyPayment) {
+      double totalMonthlyPayment, double totalLoanAmount) {
     this.homeValue = homeValue;
     this.downPayment = downPayment;
-    InterestRate = interestRate;
-    this.loanTerm = loanTerm;
+    this.interestRate = interestRate;
     this.loanAmount = loanAmount;
     this.hoaFee = hoaFee;
     this.propertyTax = propertyTax;
     this.ownerInsurance = ownerInsurance;
-    this.creditScore = creditScore;
-    this.totalPaymentDue = totalPaymentDue;
     this.totalMonthlyPayment = totalMonthlyPayment;
+    this.totalLoanAmount = totalLoanAmount;
   }
 
   public double getHomeValue() {
@@ -51,20 +52,12 @@ public class CommonVariables {
     this.downPayment = downPayment;
   }
 
-  public double getInterestRate() {
-    return InterestRate;
+  public double[] getInterestRate() {
+    return (new LocalBanks(bankName, term, rateType)).getOfferRate();
   }
 
-  public void setInterestRate(double interestRate) {
-    InterestRate = interestRate;
-  }
-
-  public int getLoanTerm() {
-    return loanTerm;
-  }
-
-  public void setLoanTerm(int loanTerm) {
-    this.loanTerm = loanTerm;
+  public void setInterestRate(double[] interestRate) {
+    this.interestRate = interestRate;
   }
 
   public double getLoanAmount() {
@@ -99,31 +92,30 @@ public class CommonVariables {
     this.ownerInsurance = ownerInsurance;
   }
 
-  public int getCreditScore() {
-    return creditScore;
-  }
-
-  public void setCreditScore(int creditScore) {
-    this.creditScore = creditScore;
-  }
-
-  public double getTotalPaymentDue() {
-    return totalPaymentDue;
-  }
-
-  public void setTotalPaymentDue(double totalPaymentDue) {
-    this.totalPaymentDue = totalPaymentDue;
-  }
-
   public double getTotalMonthlyPayment() {
-    return totalMonthlyPayment;
+    double[] offerRate = getInterestRate();
+    double monthlyPayment = 0;
+    double principal = homeValue-downPayment;
+    int length = offerRate.length;
+    if(length == 1){
+      monthlyPayment = principal*offerRate[0]*Math.pow((1+offerRate[0]), 60)/(Math.pow((1+offerRate[0]),60)-1);
+    }else{
+      for(int i= 1; i<offerRate.length; i++){
+        monthlyPayment += principal*offerRate[i]*Math.pow((1+offerRate[i]), 24)/(Math.pow((1+offerRate[i]),24)-1);
+      }
+    }
+    return monthlyPayment + hoaFee + propertyTax + ownerInsurance;
   }
 
-  public void setTotalMonthlyPayment(double totalMonthlyPayment) {
-    this.totalMonthlyPayment = totalMonthlyPayment;
+
+
+  public double getTotalLoanAmount() {
+    return totalLoanAmount;
   }
 
-
+  public void setTotalLoanAmount(double totalLoanAmount) {
+    this.totalLoanAmount = totalLoanAmount;
+  }
 
 
 }

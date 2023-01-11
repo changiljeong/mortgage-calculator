@@ -7,23 +7,23 @@ public class LocalBanks {
   private double discount;
   private int years;
   private boolean autoPayment = false;
-  private String rateType;
-
+  private RateType rateType;
+  private Terms term;
 
   public LocalBanks() {
   }
 
-  public LocalBanks(String bankName, Terms term) {
+  public LocalBanks(String bankName, Terms term, RateType rateType) {
     this.bankName = bankName;
     this.years = term.getYear();
+    rateType = rateType;
   }
 
   public LocalBanks(String bankName, double credit, double discount, Terms term) {
     this.bankName = bankName;
-    this.offerRate = getOfferRate();
     this.credit = credit;
     this.discount = discount;
-    this.years = getYears(term);
+    this.years = term.getYear();
   }
 
   public String getBankName() {
@@ -37,8 +37,8 @@ public class LocalBanks {
   public double[] getOfferRate() {
     switch (bankName){
       case "Chase Bank":
-        if(years == 30){
-          if(RateType.FIXED.getRateType().equals("fixed")){
+        if(term.getYear() == 30){
+          if(rateType.getRateType().equals("fixed")){
             offerRate[0] = 0.05;
           }else{
             offerRate[0] = 0.03;
@@ -46,12 +46,12 @@ public class LocalBanks {
               offerRate[j+1] = offerRate[j]+0.0025;
             }
           }
-        }else if(years == 15){
-          if(RateType.FIXED.getRateType().equals("fixed")){
+        }else if(term.getYear() == 15){
+          if(rateType.getRateType().equals("fixed")){
             offerRate[0] = 0.05;
           }else{
             offerRate[0] = 0.0325;
-            for(int i=6,j=0; i<=30; i=i+2,j++){
+            for(int i=6,j=0; i<=15; i=i+2,j++){
               offerRate[j+1] = offerRate[j]+0.0025;
             }
           }
@@ -59,8 +59,8 @@ public class LocalBanks {
         }
 
       case "Navy Federal Bank":
-        if(years == 30){
-          if(RateType.FIXED.getRateType().equals("fixed")){
+        if(term.getYear() == 30){
+          if(rateType.getRateType().equals("fixed")){
             offerRate[0] = 0.0475;
           }else{
             offerRate[0] = 0.0325;
@@ -68,12 +68,12 @@ public class LocalBanks {
               offerRate[j+1] = offerRate[j]+0.005;
             }
           }
-        }else if(years == 15){
-          if(RateType.FIXED.getRateType().equals("fixed")){
+        }else if(term.getYear() == 15){
+          if(rateType.equals("fixed")){
             offerRate[0] = 0.0525;
           }else{
             offerRate[0] = 0.035;
-            for(int i=6,j=0; i<=30; i=i+2,j++){
+            for(int i=6,j=0; i<=15; i=i+2,j++){
               offerRate[j+1] = offerRate[j]+0.005;
             }
           }
@@ -81,7 +81,7 @@ public class LocalBanks {
         }
 
       case "USAA":
-        if(years == 30){
+        if(term.getYear() == 30){
           if(RateType.FIXED.getRateType().equals("fixed")){
             offerRate[0] = 0.045;
           }else{
@@ -90,12 +90,12 @@ public class LocalBanks {
               offerRate[j+1] = offerRate[j]+0.0075;
             }
           }
-        }else if(years == 15){
+        }else if(term.getYear() == 15){
           if(RateType.FIXED.getRateType().equals("fixed")){
             offerRate[0] = 0.05;
           }else{
             offerRate[0] = 0.0375;
-            for(int i=6,j=0; i<=30; i=i+2,j++){
+            for(int i=6,j=0; i<=15; i=i+2,j++){
               offerRate[j+1] = offerRate[j]+0.0075;
             }
           }
@@ -133,7 +133,7 @@ public class LocalBanks {
   }
 
   public void setYears(int years) {
-    this.years = years;
+    this.years= years;
   }
 
 //  public boolean decisionMake() { //
