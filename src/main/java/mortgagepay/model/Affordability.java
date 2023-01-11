@@ -17,13 +17,13 @@ public class Affordability {
 
   private double monthlyPayment;
   private int downPayment;
-  private String rateType;
-  private int loanTerm;
+  private RateType rateType;
+  private Terms term;
   private String bankName;
 
-  public Affordability(double monthlyIncomeBeforeTax, RateType type, int loanTerm, int creditScore) {
+  public Affordability(double monthlyIncomeBeforeTax, RateType rateType, int loanTerm, int creditScore) {
     this.monthlyIncomeBeforeTax = monthlyIncomeBeforeTax;
-    this.rateType = type.getRateType();
+    this.rateType = rateType;
     this.monthsOfTerm = loanTerm*12;
   }
 
@@ -34,8 +34,8 @@ public class Affordability {
 
   public double getAffordabilityAmount(){
      double payment = monthlyPayment*PERCERTAGE1;
-     monthsOfTerm = loanTerm*12;
-     double[] offerRate = new LocalBanks(bankName, Terms.LONG_TERM).getOfferRate();
+     monthsOfTerm = term.getYear()*12;
+     double[] offerRate = new LocalBanks(bankName,term, rateType).getOfferRate();
      double rte = offerRate[0];
     double amt = payment/(rte + (rte/(Math.pow((1+rte), monthsOfTerm)))-1);
      return amt;

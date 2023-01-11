@@ -1,10 +1,11 @@
+package mortgagepay.view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 
-
-public class MortgageCalculator extends JFrame {
+public class MonthlyCalculator extends JFrame {
 
   private JTextField jtfInterestRate = new JTextField();
   private JTextField jtfLoanTerm = new JTextField();
@@ -18,12 +19,10 @@ public class MortgageCalculator extends JFrame {
   private JButton jbtCalculator=new JButton("Your mortgage details");
 
 
-  public MortgageCalculator() {
+  public MonthlyCalculator() {
     super("Please Enter Home Value,Interest Rate,and Term");
-
     buildUI();
     setFrameOptions();
-
 
     ActionListener listenner = new ActionListener() {
       @Override
@@ -55,7 +54,6 @@ public class MortgageCalculator extends JFrame {
   }
 
 
-
   private void buildUI() {
     Container pane = getContentPane();
     setPreferredSize(new Dimension(400, 300));
@@ -76,10 +74,10 @@ public class MortgageCalculator extends JFrame {
     pane.add(new JLabel("Total Payment"));
     pane.add(jtfTotalPayment);
 
-//    jftHomeValue.setDocument(new NumberDocument());
-//    jftDownPayment.setDocument(new NumberDocument());
-//    jtfInterestRate.setDocument(new NumberDocument());
-//    jtfLoanTerm.setDocument(new NumberDocument());
+    jftHomeValue.setDocument(new NumberDocument());
+    jftDownPayment.setDocument(new NumberDocument());
+    jtfInterestRate.setDocument(new NumberDocument());
+    jtfLoanTerm.setDocument(new NumberDocument());
 
     jftLoanAmount.setBackground(Color.LIGHT_GRAY);
     jftLoanAmount.setEditable(false);
@@ -102,8 +100,6 @@ public class MortgageCalculator extends JFrame {
     JOptionPane.showMessageDialog(this, msg, "Disaster Status", JOptionPane.WARNING_MESSAGE);
   }
 
-  public static void main(String[] args) {
-    new MortgageCalculator().setVisible(true);
-  }
+
 
 }
