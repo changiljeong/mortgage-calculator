@@ -22,18 +22,16 @@ public class CommonVariables {
 
   public CommonVariables(){};
 
-  public CommonVariables(double homeValue, double downPayment, double[] interestRate,
-      double loanAmount, double hoaFee, double propertyTax, double ownerInsurance,
-      double totalMonthlyPayment, double totalLoanAmount) {
+  public CommonVariables(double homeValue, double downPayment, double hoaFee, double propertyTax, double ownerInsurance, String bankName, Terms term, RateType rateType) {
     this.homeValue = homeValue;
     this.downPayment = downPayment;
-    this.interestRate = interestRate;
-    this.loanAmount = loanAmount;
+    this.loanAmount = getLoanAmount();
     this.hoaFee = hoaFee;
     this.propertyTax = propertyTax;
     this.ownerInsurance = ownerInsurance;
-    this.totalMonthlyPayment = totalMonthlyPayment;
-    this.totalLoanAmount = totalLoanAmount;
+    this.bankName = bankName;
+    this.term = term;
+    this.rateType = rateType;
   }
 
   public double getHomeValue() {
@@ -56,17 +54,11 @@ public class CommonVariables {
     return (new LocalBanks(bankName, term, rateType)).getOfferRate();
   }
 
-  public void setInterestRate(double[] interestRate) {
-    this.interestRate = interestRate;
-  }
 
   public double getLoanAmount() {
-    return loanAmount;
+    return homeValue-downPayment;
   }
 
-  public void setLoanAmount(double loanAmount) {
-    this.loanAmount = loanAmount;
-  }
 
   public double getHoaFee() {
     return hoaFee;
@@ -92,19 +84,24 @@ public class CommonVariables {
     this.ownerInsurance = ownerInsurance;
   }
 
-  public double getTotalMonthlyPayment() {
+  public double[] getTotalMonthlyPayment() {
     double[] offerRate = getInterestRate();
-    double monthlyPayment = 0;
-    double principal = homeValue-downPayment;
     int length = offerRate.length;
-    if(length == 1){
-      monthlyPayment = principal*offerRate[0]*Math.pow((1+offerRate[0]), 60)/(Math.pow((1+offerRate[0]),60)-1);
+    double[] fixedMonthlyPayment = new double[1];
+    double[] APRMonthlyPayment = new double[offerRate.length];
+    double principal = homeValue-downPayment;
+    if(rateType.getRateType().equals("fixed")){
+      fixedMonthlyPayment[0] = principal*offerRate[0]/12*Math.pow((1+offerRate[0]), term.getYear()*12)/(Math.pow((1+offerRate[0]),term.getYear()*12)-1);
+      return fixedMonthlyPayment;
     }else{
+      APRMonthlyPayment[0] = principal*offerRate[0]/12*Math.pow((1+offerRate[0]),60)/(Math.pow((1+offerRate[0]),60)-1);
+      principal -= APRMonthlyPayment[0]* 60 * 0.7;
       for(int i= 1; i<offerRate.length; i++){
-        monthlyPayment += principal*offerRate[i]*Math.pow((1+offerRate[i]), 24)/(Math.pow((1+offerRate[i]),24)-1);
+        APRMonthlyPayment[i] = principal*offerRate[i]/12*Math.pow((1+offerRate[i]), 24)/(Math.pow((1+offerRate[i]),24)-1);
+        principal -= APRMonthlyPayment[i]* 24 * 0.85;
       }
+      return APRMonthlyPayment;
     }
-    return monthlyPayment + hoaFee + propertyTax + ownerInsurance;
   }
 
 
