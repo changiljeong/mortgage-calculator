@@ -1,5 +1,6 @@
 package mortgagepay.view;
 
+import java.util.Locale;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -39,7 +40,9 @@ public class MonthlyCalculator extends JFrame implements CalculatorRender {
             Double.parseDouble(jtfHomeValue.getText());
         double downPayment=
             Double.parseDouble(jtfDownPayment.getText());
-        localbanks.setTerm(Terms.valueOf(jtfLoanTerm.getText()));
+
+        String term =jtfLoanTerm.getText();
+        if(term.toLowerCase().equals("fixed") || term.equals("standard"))
 
         jtfInterestRate.setText(String.format("%.2f", monthlyPayment));
 

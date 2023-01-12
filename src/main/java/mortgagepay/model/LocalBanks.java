@@ -37,7 +37,7 @@ public class LocalBanks {
 
   public double[] getOfferRate() {
     double[] offerRate1 = new double[14];
-    double[] offerRate2 = new double[7];
+    double[] offerRate2 = new double[6];
     switch (bankName){
       case "Chase Bank":
         if(term.getYear() == 30){
@@ -74,7 +74,7 @@ public class LocalBanks {
           }
           return offerRate1;
         }else if(term.getYear() == 15){
-          if(rateType.equals("fixed")){
+          if(rateType.getRateType().equals("fixed")){
             offerRate2[0] = 0.0525;
           }else{
             offerRate2[0] = 0.035;
@@ -87,7 +87,7 @@ public class LocalBanks {
 
       case "USAA":
         if(term.getYear() == 30){
-          if(RateType.FIXED.getRateType().equals("fixed")){
+          if(rateType.getRateType().equals("fixed")){
             offerRate1[0] = 0.045;
           }else{
             offerRate1[0] = 0.0375;
@@ -97,11 +97,11 @@ public class LocalBanks {
           }
           return offerRate1;
         }else if(term.getYear() == 15){
-          if(RateType.FIXED.getRateType().equals("fixed")){
+          if(rateType.getRateType().equals("fixed")){
             offerRate2[0] = 0.05;
           }else{
             offerRate2[0] = 0.0375;
-            for(int i=6,j=0; i<=15; i=i+2,j++){
+            for(int i=6,j=0; i<15; i=i+2,j++){
               offerRate2[j+1] = offerRate2[j] + 0.0075;
             }
           }
@@ -111,7 +111,7 @@ public class LocalBanks {
     }
 
 
-    return offerRate;
+    return null;
   }
 
 
