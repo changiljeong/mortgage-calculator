@@ -1,8 +1,8 @@
 package mortgagepay.model;
 
 public enum Terms {
-  LONG_TERM(30, "long term"),
-  SHORT_TERM(15, "short term");
+  LONG (30, "Long Term"),
+  SHORT(15, "Short Term");
 
   private final int year;
   private String name;

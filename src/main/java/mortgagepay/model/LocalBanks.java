@@ -39,7 +39,7 @@ public class LocalBanks {
     double[] offerRate1 = new double[14];
     double[] offerRate2 = new double[6];
     switch (bankName){
-      case "Chase Bank":
+      case "Pentagon":
         if(term.getYear() == 30){
           if(rateType.getRateType().equals("fixed")){
             offerRate1[0] = 0.05;
