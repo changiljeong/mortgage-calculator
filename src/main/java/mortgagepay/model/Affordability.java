@@ -1,18 +1,24 @@
 package mortgagepay.model;
 
+/*
+ * Affordability is used to calculate if a house price
+ * is affordable for a customer according his income and debt
+ */
 public class Affordability {
 
+  //28/36 rule
   private double PERCERTAGE1 = 0.28;
   private double PERCERTAGE2 = 0.36;
 
+
   private double monthlyIncomeBeforeTax;
   private double monthlyLiabilities;
-  private int monthsOfTerm ;
 
   private RateType rateType;
   private Terms term;
   private String bankName;
 
+  //constructor
   public Affordability(double monthlyIncomeBeforeTax, RateType rateType, Terms term, String bankName) {
     this.monthlyIncomeBeforeTax = monthlyIncomeBeforeTax;
     this.rateType = rateType;
@@ -27,12 +33,6 @@ public class Affordability {
     this.term= term;
     this.monthlyLiabilities = monthlyLiabilities;
   }
-
-
-  public double getMonthlyPayment(){
-    return 0;
-  }
-
 
   public double getAffordabilityAmount(){
 

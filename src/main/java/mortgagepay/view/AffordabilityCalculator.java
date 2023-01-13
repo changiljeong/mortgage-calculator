@@ -86,14 +86,6 @@ public class AffordabilityCalculator extends JFrame implements CalculatorRender 
         + "\n"
         + "Please select one of options below for your journey today with us!");
 
-  //    textMain1.setFont(textMain1.getFont().deriveFont(Font.BOLD));
-//    Font font = new Font("Verdana", Font.BOLD, 12);
-////
-//        textMain1.setFont(font);
-//    textMain1.setForeground(Color.getHSBColor(250, 150, 150));
-
-
-//    pane.add(textMain1);
     pane.add(new JLabel("Monthly Income Before Tax $"));
     pane.add(jtfMonthlyIncome);
     pane.add(new JLabel("Monthly Liabilities $"));
@@ -118,7 +110,7 @@ public class AffordabilityCalculator extends JFrame implements CalculatorRender 
   }
 
   private void setFrameOptions() {
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     setLocationRelativeTo(null);
     pack();
   }

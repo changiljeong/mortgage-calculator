@@ -7,6 +7,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -39,19 +43,6 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
     setFrameOptions();
 
 
-
-
-    ActionListener listenner = new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        double homeValue=
-            Double.parseDouble(jtfHomeValue.getText());
-        double downPayment=
-            Double.parseDouble(jtfDownPayment.getText());
-      }
-    };
-
     ActionListener monthlyListenner = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -60,22 +51,26 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
         test1.setVisible(true);
       }
     };
-
     monthlyCal.addActionListener(monthlyListenner);
 
-//        setContentPane(new JLabel(new ImageIcon("C:\\Users\\jchangil\\Desktop\\technology-in-the-workplace.png")));
-
-
+    ActionListener affordabilityListenner = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        AffordabilityCalculator test2 = new AffordabilityCalculator();
+        test2.setVisible(true);
+      }
+    };
+    affordabilityCal.addActionListener(affordabilityListenner);
   }
-
-
 
 
   @Override
   public void buildUI() {
 
     Container pane = getContentPane();
-    setPreferredSize(new Dimension(750, 600));
+
+    setPreferredSize(new Dimension(1024, 800));
     pane.setLayout(new GridLayout(4, 1));
 
 
@@ -93,12 +88,11 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
 
     textMain1.setFont(font);
     textMain1.setForeground(Color.getHSBColor(250, 150, 150));
+    pane.add(new JLabel(new ImageIcon(("/Users/albertli/Downloads/3.png"))));
     pane.add(textMain1);
-
     pane.add(monthlyCal);
     pane.add(affordabilityCal);
-    pane.add(messageLabel);
-
+//    pane.add(messageLabel);
   }
 
   private void setFrameOptions() {
@@ -107,17 +101,7 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
     pack();
   }
 
+
   public static void main(String[] args) {
     new PrimaryWelcomeView().setVisible(true);
-
-
-//    JFrame f = new JFrame();
-//    try {
-//      f.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("C:\\Users\\jchangil\\Desktop\\technology-in-the-workplace.png")))));
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//    f.pack();
-//    f.setVisible(true);
-  }
 }
