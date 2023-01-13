@@ -110,7 +110,7 @@ public class AffordabilityCalculator extends JFrame implements CalculatorRender 
   }
 
   private void setFrameOptions() {
-//    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     setLocationRelativeTo(null);
     pack();
   }

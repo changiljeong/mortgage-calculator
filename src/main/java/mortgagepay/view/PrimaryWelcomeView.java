@@ -7,7 +7,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
+
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -39,6 +42,7 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
     buildUI();
     setFrameOptions();
 
+
     ActionListener monthlyListenner = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -60,12 +64,15 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
     affordabilityCal.addActionListener(affordabilityListenner);
   }
 
+
   @Override
   public void buildUI() {
 
     Container pane = getContentPane();
+
     setPreferredSize(new Dimension(1024, 800));
     pane.setLayout(new GridLayout(4, 1));
+
 
     this.setTitle("Welcome!");
 
@@ -78,6 +85,7 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
 
     textMain1.setFont(textMain1.getFont().deriveFont(Font.BOLD));
     Font font = new Font("Verdana", Font.BOLD, 12);
+
     textMain1.setFont(font);
     textMain1.setForeground(Color.getHSBColor(250, 150, 150));
     pane.add(new JLabel(new ImageIcon(("/Users/albertli/Downloads/3.png"))));
@@ -85,7 +93,6 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
     pane.add(monthlyCal);
     pane.add(affordabilityCal);
 //    pane.add(messageLabel);
-
   }
 
   private void setFrameOptions() {
@@ -95,4 +102,6 @@ public class PrimaryWelcomeView extends JFrame implements CalculatorRender {
   }
 
 
+  public static void main(String[] args) {
+    new PrimaryWelcomeView().setVisible(true);
 }
