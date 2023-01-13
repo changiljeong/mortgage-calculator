@@ -22,7 +22,7 @@ public class CommonVariables {
 
   public CommonVariables(){};
 
-  public CommonVariables(double homeValue, double downPayment, double hoaFee, double propertyTax, double ownerInsurance, String bankName, Terms term, RateType rateType) {
+  public CommonVariables(double homeValue, double downPayment, double propertyTax, double ownerInsurance, double hoaFee,String bankName, Terms term, RateType rateType) {
     this.homeValue = homeValue;
     this.downPayment = downPayment;
     this.loanAmount = getLoanAmount();
